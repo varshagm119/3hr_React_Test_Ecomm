@@ -1,23 +1,26 @@
-import logo from './logo.svg';
 import './App.css';
+import AddProduct from './components/Product/AddProduct';
+import React, {useState} from 'react';
+import ProductList from './components/Product/ProductList'
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+  const [productList, setProductList] = useState([]);
+  // const allLocalStoredItems = {...localStorage};
+  // const localItemArray=[];
+ // console.log(allLocalStoredItems)
+  const addProductHandler = (pId,pPrice,pDesc,pCategory) => {
+    setProductList((prevProductList) => {
+      return [
+        ...prevProductList,
+        {id: pId, price: pPrice, desc: pDesc, category: pCategory}
+      ]
+    })
+  }
+  //console.log(productList);
+  return(
+    <div>
+      <AddProduct onAddProduct={addProductHandler}/>
+      <ProductList products = {productList}/>
     </div>
   );
 }
